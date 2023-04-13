@@ -48,7 +48,13 @@ public with sharing class EventLog {
     }
 
     public void log(){
-        Database.insert(eventLog, true, AccessLevel.SYSTEM_MODE);
+        Savepoint sp = Database.setSavepoint();
+        try{
+            Database.insert(eventLog, true, AccessLevel.SYSTEM_MODE);
+        }catch(DmlException ex){
+            System.debug(' There was an issue inserting the log event : '+ex.getMessage());
+            Database.rollback(sp);
+        }
     }
 
 }
