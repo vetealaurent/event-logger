@@ -12,8 +12,8 @@ public with sharing class EventLog {
         this.eventLog = new EventLog__c();
     }
 
-    public EventLog setType(String type){
-        eventLog.Type__c = type;
+    public EventLog setType(Type type){
+        eventLog.Type__c = type.name();
         return this;
     }
 
