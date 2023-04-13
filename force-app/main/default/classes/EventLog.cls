@@ -1,5 +1,12 @@
 public with sharing class EventLog {
+
     private EventLog__c eventLog;
+
+    public Enum Type {
+        INFO,
+        WARN,
+        ERROR
+    }
 
     public EventLog() {
         this.eventLog = new EventLog__c();
