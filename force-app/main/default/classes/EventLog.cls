@@ -12,22 +12,22 @@ public with sharing class EventLog {
         this.eventLog = new EventLog__c();
     }
 
-    public EventLog setType(Type type){
+    public EventLog setType(Type type) {
         eventLog.Type__c = type.name();
         return this;
     }
 
-    public EventLog setComponent(String component){
+    public EventLog setComponent(String component) {
         eventLog.Component__c = component;
         return this;
     }
 
-    public EventLog setSubComponent(String subComponent){
+    public EventLog setSubComponent(String subComponent) {
         eventLog.SubComponent__c = subComponent;
         return this;
     }
 
-    public EventLog setMessage(String message){
+    public EventLog setMessage(String message) {
         eventLog.Message__c = message;
         return this;
     }
@@ -47,13 +47,11 @@ public with sharing class EventLog {
         return this;
     }
 
-    public void log(){
-        Savepoint sp = Database.setSavepoint();
+    public void log() {
         try{
             Database.insert(eventLog, true, AccessLevel.SYSTEM_MODE);
         }catch(DmlException ex){
-            System.debug(' There was an issue inserting the log event : '+ex.getMessage());
-            Database.rollback(sp);
+            System.debug('There was an issue inserting the log event : '+ex.getMessage());
         }
     }
 
